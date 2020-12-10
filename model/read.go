@@ -1,7 +1,7 @@
 package model
 
 import (
-	"../views"
+	"github.com/capelaum/go-task-api/views"
 )
 
 //ReadAll - list all registers from table tasks
@@ -34,7 +34,7 @@ func ReadByName(name string) ([]views.PostRequest, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// create array of tasks
 	tasks := []views.PostRequest{}
 

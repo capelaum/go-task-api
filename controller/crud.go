@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"../model"
-	"../views"
+	"github.com/capelaum/go-task-api/model"
+	"github.com/capelaum/go-task-api/views"
 )
 
 func create() http.HandlerFunc {

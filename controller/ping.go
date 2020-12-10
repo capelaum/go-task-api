@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"../views"
+	"github.com/capelaum/go-task-api/views"
 )
 
 // test the server
