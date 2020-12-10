@@ -1,7 +1,5 @@
 package main
 
-// going to build this API: https://github.com/L04DB4L4NC3R/getgoing/tree/master/section4/todo-api
-
 import (
 	"fmt"
 	"log"
