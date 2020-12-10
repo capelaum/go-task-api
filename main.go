@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"./controller"
-	"./model"
+	"github.com/capelaum/go-task-api/controller"
+	"github.com/capelaum/go-task-api/model"
 	_ "github.com/go-sql-driver/mysql" // mysql driver
 )
 
