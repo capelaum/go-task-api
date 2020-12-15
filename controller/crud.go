@@ -2,9 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -20,22 +18,24 @@ func create() http.HandlerFunc {
 
 			data := views.PostRequest{}
 			// read json data from request body and decode to data object
-			err := decodeJSONBody(w, r, &data)
-			if err != nil {
-				var mr *malformedRequest
-				if errors.As(err, &mr) {
-					http.Error(w, mr.msg, mr.status)
-				} else {
-					log.Println(err.Error())
-					http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-				}
-				return
-			}
+			// err := decodeJSONBody(w, r, &data)
+			// if err != nil {
+			// 	var mr *malformedRequest
+			// 	if errors.As(err, &mr) {
+			// 		http.Error(w, mr.msg, mr.status)
+			// 	} else {
+			// 		log.Println(err.Error())
+			// 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			// 	}
+			// 	return
+			// }
+
+			json.NewDecoder(r.Body).Decode(&data)
 
 			// fmt.Fprintf(w, "TASK: %+v", data)
 			fmt.Println("Data: ", data)
 
-			err = model.InsertTask(data.ID, data.Name, data.Task) // insert into database
+			err := model.InsertTask(data.ID, data.Name, data.Task) // insert into database
 			if err != nil {
 				w.Write([]byte(err.Error()))
 				return
