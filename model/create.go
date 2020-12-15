@@ -20,8 +20,8 @@ func CreateDatabase(db *sql.DB) {
 }
 
 //InsertTask inserts a task into tasks table
-func InsertTask(name, task string) error {
-	insertQuery, err := con.Query("INSERT INTO tasks(name, task) VALUES(?, ?)", name, task)
+func InsertTask(id int, name, task string) error {
+	insertQuery, err := con.Query("INSERT INTO tasks(id, name, task) VALUES(?, ?, ?)", id, name, task)
 	defer insertQuery.Close()
 	if err != nil {
 		fmt.Println(err)

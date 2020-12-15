@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/capelaum/go-task-api/model"
 	"github.com/capelaum/go-task-api/views"
@@ -32,16 +33,16 @@ func create() http.HandlerFunc {
 			}
 
 			// fmt.Fprintf(w, "TASK: %+v", data)
-			fmt.Println("Nome:", data.Name, "Tarefa:", data.Task)
+			fmt.Println("Data: ", data)
 
-			err = model.InsertTask(data.Name, data.Task) // insert into database
+			err = model.InsertTask(data.ID, data.Name, data.Task) // insert into database
 			if err != nil {
 				w.Write([]byte(err.Error()))
 				return
 			}
 
-			w.WriteHeader(http.StatusCreated)
 			// write
+			w.WriteHeader(http.StatusCreated)
 			json.NewEncoder(w).Encode(data)
 			fmt.Println("Tarefa inserida com sucesso!")
 		}
@@ -84,7 +85,7 @@ func delete() http.HandlerFunc {
 
 		if r.Method == http.MethodDelete {
 			// fmt.Println(r.URL.Path[8:])
-			name := r.URL.Path[8:]
+			name := strings.TrimPrefix(r.URL.Path, "/delete/")
 
 			if err := model.DeleteTask(name); err != nil {
 				w.Write([]byte(err.Error()))
@@ -93,7 +94,7 @@ func delete() http.HandlerFunc {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(struct{
+		json.NewEncoder(w).Encode(struct {
 			Status string `json:status`
 		}{"Item deletado"})
 	}

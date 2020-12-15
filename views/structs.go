@@ -6,7 +6,7 @@ type Response struct {
 }
 
 type PostRequest struct {
-	ID string `json:"ID"`
+	ID int `json:"ID"`
 	Name string `json:"name"`
 	Task string `json:"task"`
 }
